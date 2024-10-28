@@ -1,0 +1,39 @@
+<!-- templates/403.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İzniniz Yok</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            max-width: 500px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+        h1 {
+            color: #f03636;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>403 - İzniniz Yok</h1>
+        <p>Bu sayfaya erişim izniniz bulunmamaktadır. Lütfen giriş yapmayı deneyin.</p>
+        <a href="{% url 'giris' %}" style="color: #f03636; text-decoration: none; font-weight: bold;">Giriş Yap</a>
+    </div>
+</body>
+</html>

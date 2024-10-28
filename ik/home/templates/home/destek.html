@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destek</title>
+
+    {% load static %}
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            height: 100vh;
+            background-color: #f4f4f4;
+            color: #333;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #f03636, #b71c1c);
+            color: white;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            box-shadow: 2px 0 15px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            transition: transform 0.4s ease-in-out;
+            transform: translateX(-100%);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #ff6f61 #b71c1c;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #ff6f61;
+            border-radius: 10px;
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar h2 {
+            color: white;
+            font-size: 30px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .sidebar h2::after {
+            content: "";
+            width: 50px;
+            height: 3px;
+            background-color: white;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 10px;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            transition: background-color 0.4s, color 0.4s, transform 0.3s;
+            font-size: large;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sidebar a i {
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        .sidebar a::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: -100%;
+            width: 300%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.4s ease-in-out;
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .sidebar a:hover::before {
+            left: 100%;
+        }
+
+        .sidebar a:hover {
+            background-color: white;
+            color: #f03636;
+            transform: scale(1.08);
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-content {
+            margin-left: 0;
+            padding: 20px;
+            width: 100%;
+            overflow: auto;
+            transition: margin-left 0.4s ease-in-out;
+        }
+
+        .main-content.expanded {
+            margin-left: 250px;
+        }
+
+        .header {
+            background-color: #ffffff;
+            color: rgb(255, 255, 255);
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid #b71c1c;
+        }
+
+        .header .menu-btn {
+            background: none;
+            border: none;
+            color: rgb(255, 0, 0);
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 800px) {
+            .sidebar {
+                width: 200px;
+                font-size: 14px;
+            }
+
+            .main-content.expanded {
+                margin-left: 200px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                transform: translateX(0); /* Açık durumda tut */
+            }
+
+            .main-content.expanded {
+                margin-left: 0;
+            }
+        }
+
+        .support-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+        }
+
+        .support-content h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #f03636;
+        }
+
+        .support-content p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .support-content a {
+            color: #f03636;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .support-content a:hover {
+            text-decoration: underline;
+        }
+
+        .user-info {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .user-info p {
+            margin: 0;
+            padding: 10px;
+            background-color: #f03636;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .user-info a {
+            display: block;
+            padding: 10px;
+            text-align: center;
+            color: #f03636;
+            text-decoration: none;
+            background-color: white;
+            border-radius: 6px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .user-info a:hover {
+            background-color: #f03636;
+            color: white;
+        }
+    </style>
+
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <h2>İK Paneli</h2>
+        <div class="user-info">
+            <p>{{ user.first_name }} {{ user.last_name }}</p>
+            <a href="{% url 'logout' %}">Çıkış Yap</a>
+        </div>
+        <a href="{% url 'profil' %}"><i class="fas fa-user-circle"></i>Profilim</a>
+        <a href="{% url 'duyurular' %}"><i class="fas fa-bullhorn"></i>Duyurular</a>
+        <a href="{% url 'izinler' %}"><i class="fas fa-calendar-check"></i>İzinler</a>
+        <a href="{% url 'raporlar' %}"><i class="fas fa-chart-line"></i>Raporlar</a>
+        <a href="{% url 'destek' %}"><i class="fas fa-headset"></i>Destek</a>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <button class="menu-btn" onclick="toggleSidebar()">&#9776;</button>
+        </div>
+
+        <div class="support-content">
+            <h1>Destek Sayfası</h1>
+            <p>Bu sayfada kullanıcılar, destek taleplerini gönderebilir, sıkça sorulan sorulara göz atabilir ve yardım alabilirler. Herhangi bir sorunla karşılaşırsanız, lütfen aşağıdaki iletişim kanalları aracılığıyla bizimle iletişime geçin.</p>
+            <p>İletişim: <a href="mailto:support@example.com">support@example.com</a></p>
+            <p>Telefon: +90 123 456 7890</p>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('expanded');
+        }
+    </script>
+
+</body>
+</html>
