@@ -28,11 +28,7 @@ Bu talimatlar, projeyi yerel bir geliştirme ortamında çalıştırmanızı sa�
     source env/bin/activate  # Windows için: .\env\Scripts\activate
     ```
 
-3. Gerekli paketleri yükleyin:
-
-    ```bash
-    pip install -r requirements.txt
-    ```
+3. Gerekli paketleri yükleyin
 
 4. Veritabanı migrasyonlarını yapın:
 
